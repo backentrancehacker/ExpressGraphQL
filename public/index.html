@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+	
+	<title>GraphQL</title>
+	<meta property="title" content="GraphQL"/>
+	
+	<link rel="stylesheet" href="/simply_clean.css" />
+</head>
+<body>
+	<h1>Express GraphQL</h1>
+	<h2>Installation of GraphQL</h2>
+	<p>Start by including <code>express</code>, <code>express-grapqhql</code>, and <code>graphql</code> at the top of the script.</p>
+	<p>Example: </p>
+<pre><code>const express = require('express')
+const graphqlHTTP = require('express-graphql')
+const {buildSchema} = require('graphql')	</code></pre>
+	<h2>Build a Schema and Root</h2>
+	<p>Simply pass a string to <code>buildSchema</code> and define a response in root.</p>
+	<p>Example: </p>
+<pre><code>const schema = buildSchema(`
+  type Query {
+    hello: String
+  }
+`)
+const root = {
+	hello: () => {
+		return "Hello World"
+	}
+}</code></pre>
+	<h2>Set up Route</h2>
+	<p>Make a graphql route in express and pass <code>graphqlHTTP</code> where the response and request would be.</p>
+<pre><code>app.use('/graphql', graphqlHTTP({
+  schema: schema,
+  rootValue: root,
+  graphiql: true // enables the default interface
+}))
+</code></pre>
+	<blockquote>
+		Important! Do not forget to set up the default express app.
+	</blockquote>
+	<h2>Demo</h2>
+	<p>Navigate to /graphql in your browser</p>
+	<h2>Documentation</h2>
+	<p>Further reading at the official <a href="https://graphql.org/graphql-js/graphql-clients/">documentation</a>.</p>
+</body>
+</html>
